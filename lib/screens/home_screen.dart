@@ -1,6 +1,8 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
+import 'guide_screen.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -26,9 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
       if (!mounted || result == null) return;
       setState(() => _pickedFiles = result.files);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-            content: Text(
-                'تم اختيار ${result.files.length} ملف — النقل الشبكي قيد التطوير')),
+        SnackBar(content: Text('تم اختيار ${result.files.length} ملف محليًا')),
       );
     } catch (_) {
       if (!mounted) return;
@@ -41,7 +41,14 @@ class _HomeScreenState extends State<HomeScreen> {
   void _showPrototypeMessage() {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-          content: Text('ميزة الاتصال والاستقبال ستُضاف في المرحلة التالية.')),
+        content: Text('الاتصال والنقل بين الأجهزة ما زالا ضمن التطوير.'),
+      ),
+    );
+  }
+
+  void _openGuide() {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(builder: (_) => const GuideScreen()),
     );
   }
 
@@ -58,19 +65,25 @@ class _HomeScreenState extends State<HomeScreen> {
                 sliver: SliverList.list(
                   children: [
                     _buildHeader(),
-                    const SizedBox(height: 28),
+                    const SizedBox(height: 24),
                     _buildHero(),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 18),
                     _buildActions(),
                     if (_pickedFiles.isNotEmpty) ...[
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 18),
                       _buildPickedFiles(),
                     ],
-                    const SizedBox(height: 30),
-                    _buildSectionHeader('نشاط النقل', 'عرض الكل'),
-                    const SizedBox(height: 12),
-                    _buildEmptyActivity(),
                     const SizedBox(height: 28),
+                    _buildWorkflow(),
+                    const SizedBox(height: 26),
+                    _buildFeatureHighlights(),
+                    const SizedBox(height: 26),
+                    _buildGuideCard(),
+                    const SizedBox(height: 28),
+                    _buildSectionHeader('نشاط النقل', 'عرض الكل'),
+                    const SizedBox(height: 10),
+                    _buildEmptyActivity(),
+                    const SizedBox(height: 20),
                     _buildConnectionNote(),
                   ],
                 ),
@@ -99,33 +112,41 @@ class _HomeScreenState extends State<HomeScreen> {
         const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('AFNOVA',
-                style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: 1.2)),
+            Text(
+              'AFNOVA',
+              style: TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.w800,
+                letterSpacing: 1.2,
+              ),
+            ),
             SizedBox(height: 2),
-            Text('أرسلها بطريقتك',
+            Text('أرسلها بسرعة. ببساطة.',
                 style: TextStyle(color: _muted, fontSize: 12)),
           ],
         ),
         const Spacer(),
-        IconButton(
-          onPressed: _showPrototypeMessage,
-          tooltip: 'الإشعارات',
-          icon: const Icon(Icons.notifications_none_rounded,
-              color: Color(0xFFD5DAE6)),
-        ),
         Container(
-          width: 38,
-          height: 38,
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
           decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: const Color(0xFF26344A),
-            border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
+            color: const Color(0xFFFFC36B).withValues(alpha: 0.12),
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(
+                color: const Color(0xFFFFC36B).withValues(alpha: 0.22)),
           ),
-          child: const Icon(Icons.person_outline_rounded,
-              size: 20, color: Color(0xFFE5E9F4)),
+          child: const Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.construction_rounded,
+                  size: 13, color: Color(0xFFFFC36B)),
+              SizedBox(width: 5),
+              Text('نموذج أولي',
+                  style: TextStyle(
+                      color: Color(0xFFFFD493),
+                      fontSize: 10,
+                      fontWeight: FontWeight.w600)),
+            ],
+          ),
         ),
       ],
     );
@@ -164,9 +185,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.wifi_tethering_rounded, size: 14, color: _mint),
+                    Icon(Icons.swap_horiz_rounded, size: 14, color: _mint),
                     SizedBox(width: 6),
-                    Text('نقل مباشر، أينما كنت',
+                    Text('Android ↔ Android',
                         style: TextStyle(
                             color: _mint,
                             fontSize: 11,
@@ -176,24 +197,24 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const SizedBox(height: 18),
               const Text(
-                'ملفاتك.\nبلا حدود.',
+                'ملفاتك.\nمن جهاز لجهاز.',
                 style: TextStyle(
-                    fontSize: 32,
+                    fontSize: 30,
                     height: 1.12,
                     fontWeight: FontWeight.w800,
                     letterSpacing: -0.5),
               ),
               const SizedBox(height: 10),
               const Text(
-                'أرسل الملفات الكبيرة مباشرةً\nمن جهازك إلى أجهزتهم.',
+                'اختر ما تريد مشاركته وتعرّف على تجربة النقل التي نبنيها.',
                 style: TextStyle(
-                    color: Color(0xFFB4BED0), fontSize: 14, height: 1.6),
+                    color: Color(0xFFB4BED0), fontSize: 13, height: 1.65),
               ),
-              const SizedBox(height: 22),
+              const SizedBox(height: 20),
               FilledButton.icon(
                 onPressed: _pickFiles,
-                icon: const Icon(Icons.arrow_upward_rounded, size: 18),
-                label: const Text('اختر ملفات للإرسال'),
+                icon: const Icon(Icons.add_to_drive_rounded, size: 18),
+                label: const Text('اختر ملفات'),
                 style: FilledButton.styleFrom(
                   backgroundColor: _violet,
                   foregroundColor: Colors.white,
@@ -220,7 +241,7 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icons.call_received_rounded,
             color: _mint,
             title: 'استقبال ملفات',
-            subtitle: 'أدخل رمز المرسل',
+            subtitle: 'قيد التطوير',
             onTap: _showPrototypeMessage,
           ),
         ),
@@ -235,6 +256,166 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildWorkflow() {
+    const steps = [
+      (Icons.folder_open_rounded, 'اختر', 'ملفاتك'),
+      (Icons.send_rounded, 'أرسل', 'طلب النقل'),
+      (Icons.verified_user_outlined, 'اقبل', 'على الجهاز الآخر'),
+      (Icons.bolt_rounded, 'انقل', 'مباشرةً'),
+    ];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSectionHeader('من الاختيار إلى الوصول', 'المسار المخطط'),
+        const SizedBox(height: 12),
+        Container(
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+          decoration: BoxDecoration(
+            color: _panel,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: _line),
+          ),
+          child: Row(
+            children: [
+              for (var index = 0; index < steps.length; index++) ...[
+                Expanded(
+                  child: Column(
+                    children: [
+                      Container(
+                        width: 38,
+                        height: 38,
+                        decoration: BoxDecoration(
+                          color: (index == 0 ? _violet : _mint)
+                              .withValues(alpha: 0.12),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(steps[index].$1,
+                            size: 19, color: index == 0 ? _violet : _mint),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(steps[index].$2,
+                          style: const TextStyle(
+                              fontSize: 11, fontWeight: FontWeight.w700)),
+                      const SizedBox(height: 3),
+                      Text(steps[index].$3,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(color: _muted, fontSize: 9)),
+                    ],
+                  ),
+                ),
+                if (index < steps.length - 1)
+                  const Icon(Icons.chevron_left_rounded,
+                      color: Color(0xFF47536B), size: 17),
+              ],
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFeatureHighlights() {
+    const features = [
+      _FeatureData(Icons.restart_alt_rounded, 'استكمال ذكي',
+          'يكمل من موضع التوقف بعد الانقطاع.'),
+      _FeatureData(Icons.account_tree_outlined, 'مجلدات كاملة',
+          'يحافظ على ترتيب الملفات وبنيتها.'),
+      _FeatureData(Icons.groups_2_outlined, 'إرسال جماعي',
+          'متابعة حالة كل مستلم بشكل مستقل.'),
+      _FeatureData(Icons.speed_rounded, 'متابعة النقل',
+          'سرعة النقل والتقدم والحجم المتبقي.'),
+    ];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text('ميزات في خارطة الطريق',
+            style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700)),
+        const SizedBox(height: 5),
+        const Text('هذه القدرات مخططة ولم تُفعّل في النموذج الأولي بعد.',
+            style: TextStyle(color: _muted, fontSize: 11)),
+        const SizedBox(height: 12),
+        SizedBox(
+          height: 146,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: features.length,
+            separatorBuilder: (_, __) => const SizedBox(width: 10),
+            itemBuilder: (context, index) =>
+                _FeatureCard(data: features[index]),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildGuideCard() {
+    return Material(
+      color: _panel,
+      borderRadius: BorderRadius.circular(22),
+      child: InkWell(
+        onTap: _openGuide,
+        borderRadius: BorderRadius.circular(22),
+        child: Container(
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(22),
+            border: Border.all(color: _violet.withValues(alpha: 0.25)),
+          ),
+          child: Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(13),
+                child: Container(
+                  width: 86,
+                  height: 112,
+                  color: const Color(0xFFF8F5EB),
+                  padding: const EdgeInsets.all(3),
+                  child: Image.asset(
+                    'assets/guide/afnova-guide-1.jpg',
+                    fit: BoxFit.contain,
+                    errorBuilder: (_, __, ___) =>
+                        const Icon(Icons.menu_book_rounded, color: _violet),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 14),
+              const Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('دليل AFNOVA المصوّر',
+                        style: TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.w700)),
+                    SizedBox(height: 6),
+                    Text(
+                        'الفكرة، خطوات النقل، المزايا، وخارطة التطوير في أربع صفحات.',
+                        style: TextStyle(
+                            color: _muted, fontSize: 11, height: 1.55)),
+                    SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Text('افتح الدليل',
+                            style: TextStyle(
+                                color: Color(0xFFD8D0FF),
+                                fontWeight: FontWeight.w700,
+                                fontSize: 12)),
+                        SizedBox(width: 5),
+                        Icon(Icons.arrow_back_rounded,
+                            color: _violet, size: 16),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -288,7 +469,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: OutlinedButton.icon(
               onPressed: _showPrototypeMessage,
               icon: const Icon(Icons.send_rounded, size: 17),
-              label: const Text('اختيار المستلم — قريبًا'),
+              label: const Text('إرسال — غير مفعّل بعد'),
               style: OutlinedButton.styleFrom(
                 foregroundColor: const Color(0xFFD5CEFF),
                 side: BorderSide(color: _violet.withValues(alpha: 0.55)),
@@ -307,12 +488,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return Row(
       children: [
         Text(title,
-            style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700)),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
         const Spacer(),
-        TextButton(
-            onPressed: _showPrototypeMessage,
-            child: Text(action,
-                style: const TextStyle(color: _violet, fontSize: 12))),
+        Text(action, style: const TextStyle(color: _violet, fontSize: 11)),
       ],
     );
   }
@@ -325,23 +503,16 @@ class _HomeScreenState extends State<HomeScreen> {
           color: _panel,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: _line)),
-      child: Column(
+      child: const Column(
         children: [
-          Container(
-            width: 52,
-            height: 52,
-            decoration: BoxDecoration(
-                color: const Color(0xFF202943),
-                borderRadius: BorderRadius.circular(18)),
-            child: const Icon(Icons.swap_horiz_rounded,
-                color: Color(0xFFA5B2C8), size: 27),
-          ),
-          const SizedBox(height: 12),
-          const Text('لا توجد عمليات نقل بعد',
+          Icon(Icons.swap_horiz_rounded, color: Color(0xFFA5B2C8), size: 28),
+          SizedBox(height: 10),
+          Text('لا توجد عمليات نقل بعد',
               style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14)),
-          const SizedBox(height: 5),
-          const Text('ستظهر ملفاتك المُرسلة والمُستقبلة هنا',
-              style: TextStyle(color: _muted, fontSize: 12)),
+          SizedBox(height: 5),
+          Text('ستظهر عمليات الإرسال والاستقبال هنا عند اكتمال ميزة النقل.',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: _muted, fontSize: 11, height: 1.5)),
         ],
       ),
     );
@@ -358,21 +529,21 @@ class _HomeScreenState extends State<HomeScreen> {
       child: const Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(Icons.lock_outline_rounded, color: _mint, size: 19),
+          Icon(Icons.info_outline_rounded, color: _mint, size: 19),
           SizedBox(width: 10),
           Expanded(
             child: Text(
-              'خصوصيتك أولًا',
+              'تنبيه النموذج الأولي',
               style: TextStyle(
-                  fontWeight: FontWeight.w700, fontSize: 13, height: 1.5),
+                  fontWeight: FontWeight.w700, fontSize: 12, height: 1.5),
             ),
           ),
           SizedBox(width: 8),
           Expanded(
             flex: 3,
             child: Text(
-              'واجهة النموذج الأولي فقط؛ النقل المشفّر المباشر سيُنفّذ ضمن المرحلة التالية.',
-              style: TextStyle(color: _muted, fontSize: 11, height: 1.6),
+              'اختيار الملفات والدليل المصوّر يعملان محليًا. الاتصال، القبول/الرفض، والتشفير والنقل الفعلي قيد التنفيذ.',
+              style: TextStyle(color: _muted, fontSize: 10, height: 1.6),
             ),
           ),
         ],
@@ -418,7 +589,7 @@ class _ActionCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Icon(icon, color: color, size: 23),
-              const SizedBox(height: 16),
+              const SizedBox(height: 15),
               Text(title,
                   style: const TextStyle(
                       fontSize: 13, fontWeight: FontWeight.w700)),
@@ -432,4 +603,51 @@ class _ActionCard extends StatelessWidget {
       ),
     );
   }
+}
+
+class _FeatureCard extends StatelessWidget {
+  const _FeatureCard({required this.data});
+
+  final _FeatureData data;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 158,
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: _HomeScreenState._panel,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: _HomeScreenState._line),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(data.icon, color: const Color(0xFF8C72FF), size: 22),
+          const SizedBox(height: 12),
+          Text(data.title,
+              style:
+                  const TextStyle(fontSize: 12, fontWeight: FontWeight.w700)),
+          const SizedBox(height: 5),
+          Expanded(
+              child: Text(data.description,
+                  style: const TextStyle(
+                      color: Color(0xFF94A0B8), fontSize: 10, height: 1.5))),
+          const Text('ضمن الخطة',
+              style: TextStyle(
+                  color: Color(0xFFFFD493),
+                  fontSize: 9,
+                  fontWeight: FontWeight.w600)),
+        ],
+      ),
+    );
+  }
+}
+
+class _FeatureData {
+  const _FeatureData(this.icon, this.title, this.description);
+
+  final IconData icon;
+  final String title;
+  final String description;
 }
