@@ -2,6 +2,10 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 import 'guide_screen.dart';
+import '../models/roadmap_feature.dart';
+import '../widgets/afnova_action_card.dart';
+import '../widgets/project_illustration_gallery.dart';
+import '../widgets/roadmap_feature_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -77,6 +81,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     _buildWorkflow(),
                     const SizedBox(height: 26),
                     _buildFeatureHighlights(),
+                    const SizedBox(height: 24),
+                    const ProjectIllustrationGallery(),
                     const SizedBox(height: 26),
                     _buildGuideCard(),
                     const SizedBox(height: 28),
@@ -175,23 +181,35 @@ class _HomeScreenState extends State<HomeScreen> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: Image.asset(
-                  'assets/images/afnova-p2p-hero.jpg',
-                  key: const ValueKey('afnova-hero-image'),
-                  width: double.infinity,
-                  height: 142,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) => Container(
-                    height: 142,
+              TweenAnimationBuilder<double>(
+                tween: Tween(begin: 0, end: 1),
+                duration: const Duration(milliseconds: 640),
+                curve: Curves.easeOutCubic,
+                builder: (context, value, child) => Opacity(
+                  opacity: value,
+                  child: Transform.translate(
+                    offset: Offset(0, 10 * (1 - value)),
+                    child: child,
+                  ),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: Image.asset(
+                    'assets/illustrations/hero-p2p-transfer.jpg',
+                    key: const ValueKey('afnova-hero-image'),
                     width: double.infinity,
-                    color: const Color(0xFF161C38),
-                    alignment: Alignment.center,
-                    child: const Icon(
-                      Icons.phonelink_rounded,
-                      size: 50,
-                      color: _mint,
+                    height: 142,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) => Container(
+                      height: 142,
+                      width: double.infinity,
+                      color: const Color(0xFF161C38),
+                      alignment: Alignment.center,
+                      child: const Icon(
+                        Icons.phonelink_rounded,
+                        size: 50,
+                        color: _mint,
+                      ),
                     ),
                   ),
                 ),
@@ -259,7 +277,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Row(
       children: [
         Expanded(
-          child: _ActionCard(
+          child: AfnovaActionCard(
             icon: Icons.call_received_rounded,
             color: _mint,
             title: 'استقبال ملفات',
@@ -269,7 +287,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         const SizedBox(width: 12),
         Expanded(
-          child: _ActionCard(
+          child: AfnovaActionCard(
             icon: Icons.qr_code_2_rounded,
             color: const Color(0xFFFFC36B),
             title: 'رمز جهازي',
@@ -342,14 +360,26 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildFeatureHighlights() {
     const features = [
-      _FeatureData(Icons.restart_alt_rounded, 'استكمال ذكي',
-          'يكمل من موضع التوقف بعد الانقطاع.'),
-      _FeatureData(Icons.account_tree_outlined, 'مجلدات كاملة',
-          'يحافظ على ترتيب الملفات وبنيتها.'),
-      _FeatureData(Icons.groups_2_outlined, 'إرسال جماعي',
-          'متابعة حالة كل مستلم بشكل مستقل.'),
-      _FeatureData(Icons.speed_rounded, 'متابعة النقل',
-          'سرعة النقل والتقدم والحجم المتبقي.'),
+      RoadmapFeature(
+        icon: Icons.restart_alt_rounded,
+        title: 'استكمال ذكي',
+        description: 'يكمل من موضع التوقف بعد الانقطاع.',
+      ),
+      RoadmapFeature(
+        icon: Icons.account_tree_outlined,
+        title: 'مجلدات كاملة',
+        description: 'يحافظ على ترتيب الملفات وبنيتها.',
+      ),
+      RoadmapFeature(
+        icon: Icons.groups_2_outlined,
+        title: 'إرسال جماعي',
+        description: 'متابعة حالة كل مستلم بشكل مستقل.',
+      ),
+      RoadmapFeature(
+        icon: Icons.speed_rounded,
+        title: 'متابعة النقل',
+        description: 'سرعة النقل والتقدم والحجم المتبقي.',
+      ),
     ];
 
     return Column(
@@ -368,7 +398,7 @@ class _HomeScreenState extends State<HomeScreen> {
             itemCount: features.length,
             separatorBuilder: (_, __) => const SizedBox(width: 10),
             itemBuilder: (context, index) =>
-                _FeatureCard(data: features[index]),
+                RoadmapFeatureCard(data: features[index]),
           ),
         ),
       ],
@@ -578,98 +608,4 @@ class _HomeScreenState extends State<HomeScreen> {
     if (bytes < 1024 * 1024) return '${(bytes / 1024).toStringAsFixed(0)} KB';
     return '${(bytes / (1024 * 1024)).toStringAsFixed(1)} MB';
   }
-}
-
-class _ActionCard extends StatelessWidget {
-  const _ActionCard(
-      {required this.icon,
-      required this.color,
-      required this.title,
-      required this.subtitle,
-      required this.onTap});
-
-  final IconData icon;
-  final Color color;
-  final String title;
-  final String subtitle;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: const Color(0xFF111A2B),
-      borderRadius: BorderRadius.circular(20),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(20),
-        child: Container(
-          padding: const EdgeInsets.all(15),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: const Color(0xFF202B40))),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(icon, color: color, size: 23),
-              const SizedBox(height: 15),
-              Text(title,
-                  style: const TextStyle(
-                      fontSize: 13, fontWeight: FontWeight.w700)),
-              const SizedBox(height: 4),
-              Text(subtitle,
-                  style:
-                      const TextStyle(color: Color(0xFF94A0B8), fontSize: 11)),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _FeatureCard extends StatelessWidget {
-  const _FeatureCard({required this.data});
-
-  final _FeatureData data;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 158,
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: _HomeScreenState._panel,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: _HomeScreenState._line),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(data.icon, color: const Color(0xFF8C72FF), size: 22),
-          const SizedBox(height: 12),
-          Text(data.title,
-              style:
-                  const TextStyle(fontSize: 12, fontWeight: FontWeight.w700)),
-          const SizedBox(height: 5),
-          Expanded(
-              child: Text(data.description,
-                  style: const TextStyle(
-                      color: Color(0xFF94A0B8), fontSize: 10, height: 1.5))),
-          const Text('ضمن الخطة',
-              style: TextStyle(
-                  color: Color(0xFFFFD493),
-                  fontSize: 9,
-                  fontWeight: FontWeight.w600)),
-        ],
-      ),
-    );
-  }
-}
-
-class _FeatureData {
-  const _FeatureData(this.icon, this.title, this.description);
-
-  final IconData icon;
-  final String title;
-  final String description;
 }

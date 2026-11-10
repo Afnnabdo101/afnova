@@ -1,0 +1,29 @@
+name: بلاغ عن مشكلة
+description: الإبلاغ عن خطأ قابل لإعادة الإنتاج في AFNOVA
+title: "bug: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: "لا ترفق ملفات خاصة أو مفاتيح أو بيانات اعتماد. لا يوجد نقل شبكي فعلي في النموذج الحالي."
+  - type: textarea
+    id: summary
+    attributes:
+      label: وصف المشكلة
+      description: ماذا حدث، وما الذي توقعت حدوثه؟
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: الجهاز وإصدار التطبيق
+      placeholder: Android version, device, commit
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: خطوات إعادة المشكلة
+      placeholder: "1. افتح التطبيق..."
+    validations:
+      required: true

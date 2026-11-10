@@ -1,0 +1,25 @@
+name: اقتراح ميزة
+description: اقتراح تحسين متصل بهدف AFNOVA
+title: "feature: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: الحاجة
+      description: ما المشكلة أو الاستخدام الذي تريد حله؟
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: الاقتراح
+      description: صف السلوك المتوقع، وبيّن إن كان تحسينًا للمخطط أو للواجهة الحالية.
+    validations:
+      required: true
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: النطاق
+      options:
+        - label: أفهم أن اتصال الأجهزة ونقل الملفات الفعلي غير منفذ في النموذج الحالي.

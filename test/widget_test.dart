@@ -20,6 +20,16 @@ void main() {
     expect(find.text('ميزات في خارطة الطريق'), findsOneWidget);
 
     await tester.scrollUntilVisible(
+      find.text('صور فكرة المشروع'),
+      300,
+      scrollable: scrollable,
+    );
+    await tester.pumpAndSettle();
+    expect(find.byKey(const ValueKey('capabilities-illustration')),
+        findsOneWidget);
+    expect(find.byKey(const ValueKey('privacy-illustration')), findsOneWidget);
+
+    await tester.scrollUntilVisible(
       find.text('دليل AFNOVA المصوّر'),
       300,
       scrollable: scrollable,

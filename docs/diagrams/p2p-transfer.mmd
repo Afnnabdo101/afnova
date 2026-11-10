@@ -1,0 +1,10 @@
+flowchart LR
+  S[جهاز المرسل Android] -->|طلب ومعلومات الجلسة| SIG[خدمة Signaling]
+  R[جهاز المستلم Android] -->|قبول أو رفض| SIG
+  SIG -.->|SDP و ICE فقط| S
+  SIG -.->|SDP و ICE فقط| R
+  S <-->|قناة WebRTC مباشرة بعد القبول| R
+  STUN[خادم STUN] -. اكتشاف المسار .-> S
+  STUN -. اكتشاف المسار .-> R
+  S -->|عند فشل الاتصال المباشر| TURN[مرحل TURN]
+  TURN --> R
