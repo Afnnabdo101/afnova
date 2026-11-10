@@ -1,6 +1,6 @@
 # AFNOVA
 
-![شعار AFNOVA](assets/branding/afnova-logo.png)
+![شعار AFNOVA: ملف في مسار تبادل دائري](assets/branding/afnova-logo.png)
 
 **أرسلها بسرعة. ببساطة.** مشروع Flutter يهدف إلى مشاركة الملفات والمجلدات بين أجهزة Android عبر الإنترنت، مع موافقة المستلم قبل النقل.
 

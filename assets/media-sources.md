@@ -2,10 +2,9 @@
 
 | الأصل | المصدر والحالة | الاستخدام والملاحظة |
 |---|---|---|
-| `branding/afnova-mark.png` | رمز أصلي مولد خصيصًا لـ AFNOVA | علامة جهازين وملف وسهم؛ نسخة مربعة شفافة للتطبيق. |
-| `branding/afnova-mark-wide.png` | قص شفاف محافظ من رمز العلامة | يُستخدم داخل ملفات SVG الأفقية؛ لا يضيف عناصر جديدة. |
-| `branding/afnova-logo.svg` و`branding/afnova-logo-light.svg` | تركيب متجهي من الرمز وكتابة AFNOVA دقيقة | نسختان للخلفيات الفاتحة والداكنة. |
-| `branding/afnova-logo.png` و`branding/afnova-app-icon.png` | تصدير PNG من ملفات SVG المصدرية | عرض الشعار وأيقونة Android. |
+| `branding/afnova-mark.svg` و`branding/afnova-mark.png` | علامة متجهية أصلية مبنية على الخيار الثاني الذي اختاره صاحب المشروع | ملف في الوسط مع مساري تبادل دائريين؛ رمز التطبيق. |
+| `branding/afnova-logo.svg` و`branding/afnova-logo-light.svg` | تركيب متجهي من الرمز المختار وكتابة AFNOVA دقيقة | نسختان للخلفيات الفاتحة والداكنة. |
+| `branding/afnova-logo.png` و`branding/afnova-app-icon.png` | تصدير PNG للشعار وأيقونة Android | عرض الشعار والأيقونة. |
 | `illustrations/hero-p2p-transfer.jpg` | رسم أصلي مولد خصيصًا لـ AFNOVA | صورة رئيسية مفاهيمية؛ ليست لقطة تطبيق أو إثبات نقل. |
 | `illustrations/transfer-capabilities.jpg` | رسم أصلي مولد خصيصًا لـ AFNOVA | تصور للمجلدات والاستئناف والإرسال الجماعي المخطط. |
 | `illustrations/privacy-concept.jpg` | رسم أصلي مولد خصيصًا لـ AFNOVA | تصوير لهدف الخصوصية؛ لا يثبت تنفيذ التشفير أو ضمانه. |

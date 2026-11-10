@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 200" role="img" aria-labelledby="title desc">
   <title id="title">AFNOVA</title>
-  <desc id="desc">شعار AFNOVA فاتح للاستخدام على خلفيات داكنة</desc>
-  <image href="afnova-mark-wide.png" x="8" y="18" width="232" height="164" preserveAspectRatio="xMidYMid meet" />
-  <text x="270" y="128" fill="#F7F8FF" font-family="Inter, Manrope, Segoe UI, Arial, sans-serif" font-size="78" font-weight="800" letter-spacing="5">AFNOVA</text>
+  <desc id="desc">نسخة فاتحة من شعار AFNOVA الداكن</desc>
+  <image href="afnova-mark.png" x="12" y="8" width="184" height="184" preserveAspectRatio="xMidYMid meet" />
+  <text x="222" y="128" fill="#F7F8FF" font-family="Inter, Manrope, Segoe UI, Arial, sans-serif" font-size="78" font-weight="800" letter-spacing="5">AFNOVA</text>
 </svg>
