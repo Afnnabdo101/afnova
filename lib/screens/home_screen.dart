@@ -175,6 +175,28 @@ class _HomeScreenState extends State<HomeScreen> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Image.asset(
+                  'assets/images/afnova-p2p-hero.jpg',
+                  key: const ValueKey('afnova-hero-image'),
+                  width: double.infinity,
+                  height: 142,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) => Container(
+                    height: 142,
+                    width: double.infinity,
+                    color: const Color(0xFF161C38),
+                    alignment: Alignment.center,
+                    child: const Icon(
+                      Icons.phonelink_rounded,
+                      size: 50,
+                      color: _mint,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 18),
               Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 6),

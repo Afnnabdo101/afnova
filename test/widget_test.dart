@@ -10,6 +10,7 @@ void main() {
     expect(find.text('AFNOVA'), findsOneWidget);
     expect(find.text('ملفاتك.\nمن جهاز لجهاز.'), findsOneWidget);
     expect(find.text('اختر ملفات'), findsOneWidget);
+    expect(find.byKey(const ValueKey('afnova-hero-image')), findsOneWidget);
     final scrollable = find.byType(Scrollable).first;
     await tester.scrollUntilVisible(
       find.text('ميزات في خارطة الطريق'),
