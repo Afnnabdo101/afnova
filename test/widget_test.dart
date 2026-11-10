@@ -8,6 +8,7 @@ void main() {
     await tester.pumpWidget(const AfnovaApp());
 
     expect(find.text('AFNOVA'), findsOneWidget);
+    expect(find.byKey(const ValueKey('afnova-brand-mark')), findsOneWidget);
     expect(find.text('ملفاتك.\nمن جهاز لجهاز.'), findsOneWidget);
     expect(find.text('اختر ملفات'), findsOneWidget);
     expect(find.byKey(const ValueKey('afnova-hero-image')), findsOneWidget);

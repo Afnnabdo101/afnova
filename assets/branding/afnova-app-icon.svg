@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">AFNOVA app icon</title>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#101829" />
+      <stop offset="1" stop-color="#201B4D" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="118" fill="url(#background)" />
+  <image href="afnova-mark-wide.png" x="14" y="86" width="484" height="342" preserveAspectRatio="xMidYMid meet" />
+</svg>

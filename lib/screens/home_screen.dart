@@ -112,7 +112,13 @@ class _HomeScreenState extends State<HomeScreen> {
             borderRadius: BorderRadius.circular(15),
             border: Border.all(color: _violet.withValues(alpha: 0.3)),
           ),
-          child: const Icon(Icons.bolt_rounded, color: _violet, size: 28),
+          child: Image.asset(
+            'assets/branding/afnova-mark.png',
+            key: const ValueKey('afnova-brand-mark'),
+            width: 40,
+            height: 40,
+            fit: BoxFit.contain,
+          ),
         ),
         const SizedBox(width: 12),
         const Column(

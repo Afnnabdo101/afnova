@@ -1,5 +1,7 @@
 # AFNOVA
 
+![شعار AFNOVA](assets/branding/afnova-logo.png)
+
 **أرسلها بسرعة. ببساطة.** مشروع Flutter يهدف إلى مشاركة الملفات والمجلدات بين أجهزة Android عبر الإنترنت، مع موافقة المستلم قبل النقل.
 
 [![Flutter CI](https://github.com/Afnnabdo101/afnova/actions/workflows/flutter.yml/badge.svg)](https://github.com/Afnnabdo101/afnova/actions/workflows/flutter.yml) ![Platform](https://img.shields.io/badge/platform-Android-3DDC84?logo=android&logoColor=white) ![Status](https://img.shields.io/badge/status-prototype-8C72FF)
@@ -62,6 +64,7 @@ flutter test
 ```text
 android/                     إعداد منصة Android
 assets/
+  branding/                   شعار AFNOVA وأيقونة Android
   guide/                     صفحات كتيب AFNOVA المصوّر
   illustrations/              رسومات الفكرة والميزات والخصوصية
   README.md                  شرح تنظيم الأصول
